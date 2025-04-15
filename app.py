@@ -92,15 +92,16 @@ ax.legend()
 ax.grid(True)
 st.pyplot(fig)
 
-# Graphique camembert
-st.subheader("Répartition des Dépenses")
+# === GRAPHIQUE CIRCULAIRE DÉPENSES (avec sécurité) ===
 labels = ['Crédit Immo', 'Crédit Voiture', 'Autres Dépenses', 'Épargne']
 values = [mensualite_immobilier, mensualite_voiture, autres_depenses, max(epargne, 0)]
-fig2, ax2 = plt.subplots()
-ax2.pie(values, labels=labels, autopct='%1.1f%%')
-ax2.set_title("Répartition des Dépenses")
-ax2.axis('equal')
-st.pyplot(fig2)
+
+if sum(values) > 0:
+    fig2, ax2 = plt.subplots()
+    ax2.pie(values, labels=labels, autopct='%1.1f%%')
+    st.pyplot(fig2)
+else:
+    st.warning("📊 Impossible d’afficher le graphique circulaire : données insuffisantes.")
 
 # Résumé Excel
 st.header("📁 Export Excel")
